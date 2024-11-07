@@ -1,11 +1,17 @@
-# Análise de Dados #1
+# Motivação
+Este repositório foi concebido para armazenar meus projetos de Data Science relizados durante o MBA de Data Science pela UNOPAR. Sendo assim, todos os projetos foram desenvolvidos pensando em aplicar algum conceito estudado durante o MBA.
 
-Esse repositório contém uma análise de dados com conjuntos fictícios gerados pelo ChatGPT.
+## Análise de Dados #1 - Vendas por Região
+Este projeto visa analisar os dados de vendas de uma loja fictícia, buscando relacionar a quantidade e o valor total de vendas por região. A análise inclui gráficos de visualização e cálculo de correlação para explorar a relação entre a quantidade de vendas e o valor total das vendas em diferentes regiões.
 
-Criado com o propóstio de praticar conceitos aprendidos no MBA de Data Science relativos a disciplina de Análise de Dados e do curso Python para Data Science da Data Science Academy.
+**OBS:** Os dados utilizados são fictícios e foram gerados pelo ChatGPT.
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" height=40 width=40/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" height=40 width=40/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" height=40 width=40/>
+### Tecnologias Utilizadas
+- Python: Linguagem principal do projeto
+- Pandas e Numpy: Manipulação e análise de dados
+- Matplotlib: Visualização de dados
+- Scipy: Cálculo de correlação de Spearman
+- Collections (Counter, defaultdict): Contagem e agregação de dados
 
-## Resultado dos Gráficos
-
+### Resultado dos Gráficos e Correlação
 ![image](https://github.com/user-attachments/assets/834044b0-e7c2-4e51-9625-876ec1527d3c)
