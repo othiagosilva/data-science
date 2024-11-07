@@ -1,0 +1,73 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+from collections import defaultdict, Counter
+from scipy.stats import spearmanr
+import numpy as np
+
+# Função para extrair dados
+def extrair_dados(filepath):
+    df = pd.read_csv(filepath)
+    return df
+
+# Função para criar gráfico de barras
+def criar_grafico_barras(ax, labels, valores, xlabel, ylabel, titulo):
+    ax.bar(labels, valores, color='skyblue')
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(titulo)
+
+# Função para calcular a correlação de Spearman
+def calcular_correlacao(df, col_x, col_y):
+    coef_spearman, p_valor = spearmanr(df[col_x], df[col_y])
+    print(f'Coeficiente Correlacional Spearman: {coef_spearman}')
+    return coef_spearman, p_valor
+
+# Função para criar gráfico de dispersão
+def criar_grafico_dispersao(ax, x, y, xlabel, ylabel, titulo):
+    ax.scatter(x, y, color='skyblue')
+    # Adicionar linha de tendência
+    m, b = np.polyfit(x, y, 1)
+    ax.plot(x, m * x + b, color='red', linestyle='--')
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(titulo)
+    ax.grid(True)
+
+# Carregar dados
+df = extrair_dados('dados_vendas.csv')
+
+# Quantidade de Vendas por Região
+quantidade_vendas_por_regiao = df['Regiao da Loja'].value_counts()
+
+# Valor Total das Vendas por Região
+vendas_por_regiao = df.groupby('Regiao da Loja')['Valor da Venda'].sum()
+
+# Análise de Correlação entre Quantidade de Vendas e Valor Total por Região
+# Criando DataFrame resumido com dados agregados
+df_agrupado = pd.DataFrame({
+    'valor_total': vendas_por_regiao,
+    'quantidade_vendas': quantidade_vendas_por_regiao
+})
+
+# Calcular correlação de Spearman
+calcular_correlacao(df_agrupado, 'valor_total', 'quantidade_vendas')
+print()
+
+# Criando a figura com 1 linha e 3 colunas para os 3 gráficos
+fig, axs = plt.subplots(1, 3, figsize=(20, 6))
+
+# Criar gráficos
+criar_grafico_barras(axs[0], quantidade_vendas_por_regiao.index, quantidade_vendas_por_regiao.values,
+                     'Região da Loja', 'Quantidade de Vendas', 'Quantidade de Vendas por Região')
+
+criar_grafico_barras(axs[1], vendas_por_regiao.index, vendas_por_regiao.values,
+                     'Região da Loja', 'Valor Total de Vendas', 'Valor Total das Vendas por Região')
+
+criar_grafico_dispersao(axs[2], df_agrupado['quantidade_vendas'], df_agrupado['valor_total'],
+                        'Quantidade de Vendas por Região', 'Valor Total das Vendas',
+                        'Quantidade de Vendas X Valor Total de Vendas por Região')
+
+# Ajuste de layout e espaçamento entre gráficos
+plt.subplots_adjust(wspace=0.5)  # Define o espaço horizontal entre gráficos
+plt.show()
